@@ -1,14 +1,22 @@
 require("dotenv/config");
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const app = express();
 
-app.all("*", (req, res) => {
-	res.send("Hello World!");
+app.use("/css", express.static(path.join(__dirname, "../public/css")));
+app.use("/js", express.static(path.join(__dirname, "../public/js")));
+
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-// Start the app
+app.all("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "../public/404.html"));
+});
+
+// Start the app*
 (async () => {
 	await mongoose.connect(process.env.MONGODB, { family: 4 }, (err) => {
 		if (err != null) {
