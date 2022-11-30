@@ -17,7 +17,7 @@ app.all("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "../public/404.html"));
 });
 
-// Start the app*
+// Start the app
 (async () => {
 	await mongoose.connect(process.env.MONGODB, { family: 4 }, (err) => {
 		if (err != null) {
